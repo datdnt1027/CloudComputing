@@ -25,7 +25,7 @@ jobs:
 
       - name: Set environment variables to .env
         run: |
-          echo 'WEBSITE_IMAGE=ghcr.io/$(echo $GITHUB_REPOSITORY | tr "[:upper:]" "[:lower:]")/website' >> $GITHUB_ENV
+          echo "WEBSITE_IMAGE=$(echo ${{env.WEBSITE_IMAGE}} )" >> $GITHUB_ENV
           echo "NGINX_IMAGE=$(echo ${{env.NGINX_IMAGE}} )" >> $GITHUB_ENV
 
     #   - name: Log in to GitHub Packages
