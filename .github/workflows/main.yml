@@ -19,29 +19,33 @@ jobs:
       - name: checkout main
         uses: actions/checkout@v3
 
-      - name: Set environment variables to .env
-        run: |
-          echo "WEBSITE_IMAGE=$(echo ${{env.WEBSITE_IMAGE}} )" >> $GITHUB_ENV
-          echo "NGINX_IMAGE=$(echo ${{env.NGINX_IMAGE}} )" >> $GITHUB_ENV
+      - name: Display GitHub repository
+        run: | 
+            echo "GitHub Repository: $GITHUB_REPOSITORY"
 
-      - name: Log in to GitHub Packages
-        env:
-          PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        run: echo ${PERSONAL_ACCESS_TOKEN} | docker login ghcr.io -u ${{ secrets.NAMESPACE }} --password-stdin
+    #   - name: Set environment variables to .env
+    #     run: |
+    #       echo "WEBSITE_IMAGE=$(echo ${{env.WEBSITE_IMAGE}} )" >> $GITHUB_ENV
+    #       echo "NGINX_IMAGE=$(echo ${{env.NGINX_IMAGE}} )" >> $GITHUB_ENV
 
-      - name: Pull images
-        run: |
-          docker pull ${{ env.WEBSITE_IMAGE }} || true
-          docker pull ${{ env.NGINX_IMAGE }} || true
+    #   - name: Log in to GitHub Packages
+    #     env:
+    #       PERSONAL_ACCESS_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+    #     run: echo ${PERSONAL_ACCESS_TOKEN} | docker login ghcr.io -u ${{ secrets.NAMESPACE }} --password-stdin
 
-      - name: Build images
-        run: |
-          docker-compose -f docker-compose.ci.yml build
+    #   - name: Pull images
+    #     run: |
+    #       docker pull ${{ env.WEBSITE_IMAGE }} || true
+    #       docker pull ${{ env.NGINX_IMAGE }} || true
 
-      - name: Push images
-        run: |
-          docker push ${{ env.WEBSITE_IMAGE }}
-          docker push ${{ env.NGINX_IMAGE }}
+    #   - name: Build images
+    #     run: |
+    #       docker-compose -f docker-compose.ci.yml build
+
+    #   - name: Push images
+    #     run: |
+    #       docker push ${{ env.WEBSITE_IMAGE }}
+    #       docker push ${{ env.NGINX_IMAGE }}
 
 #   checking-secrets:
 #     name: Checking secrets
