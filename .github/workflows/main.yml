@@ -94,8 +94,8 @@ jobs:
             username: ${{ secrets.AWS_HOST_USER }}
             key: ${{ secrets.PRIVATE_KEY }}
             script: |
-                docker compose down
-                docker compose rm -a    
+                docker-compose down
+                docker-compose rm -a    
                 docker pull $WEBSITE_IMAGE
                 docker pull $NGINX_IMAGE               
                 docker-compose --env-file=.env -f docker-compose.prod.yml up -d
