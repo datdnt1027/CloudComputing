@@ -24,7 +24,7 @@ jobs:
             echo "GitHub Repository: $GITHUB_REPOSITORY"
 
       - name: Log in to GitHub Packages
-        run:  docker login --username datdnt1027 --password-stdin ${{secrets.PERSONAL_ACCESS_TOKEN}} ghcr.io
+        run:  docker login --username datdnt1027 --password-stdin ${{ secrets.PERSONAL_ACCESS_TOKEN }} ghcr.io
 
       - name: Set environment variables to .env
         run: |
