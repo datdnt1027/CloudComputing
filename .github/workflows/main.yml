@@ -84,8 +84,8 @@ jobs:
 
       - name: Add environment variables to .env
         run: |
-          echo WEBSITE_IMAGE=${{ env.WEBSITE_IMAGE }} >> .env
-          echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
+          echo "WEBSITE_IMAGE=$(echo ${{env.WEBSITE_IMAGE}} )" >> .env
+          echo "NGINX_IMAGE=$(echo ${{env.NGINX_IMAGE}} )" >> .env
 
       - name: Deploy images on AWS EC2
         uses: appleboy/ssh-action@master
