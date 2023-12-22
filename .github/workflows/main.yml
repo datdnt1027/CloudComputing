@@ -84,8 +84,8 @@ jobs:
 
       - name: Add environment variables to .env
         run: |
-          echo "WEBSITE_IMAGE=$(echo ${{env.WEBSITE_IMAGE}} )" >> $GITHUB_ENV
-          echo "NGINX_IMAGE=$(echo ${{env.NGINX_IMAGE}} )" >> $GITHUB_ENV
+          echo WEBSITE_IMAGE=${{ env.WEBSITE_IMAGE }} >> .env
+          echo NGINX_IMAGE=${{ env.NGINX_IMAGE }} >> .env
 
       - name: Deploy images on AWS EC2
         uses: appleboy/ssh-action@master
@@ -94,9 +94,9 @@ jobs:
             username: ${{ secrets.AWS_HOST_USER }}
             key: ${{ secrets.PRIVATE_KEY }}
             script: |
-                docker-compose down --rmi all -v
-                echo ${PERSONAL_ACCESS_TOKEN} | docker login ghcr.io -u ${{secrets.NAMESPACE}} --password-stdin
-                docker pull ${{ env.WEBSITE_IMAGE }}
-                docker pull ${{ env.NGINX_IMAGE }}                
+                docker compose down
+                docker compose rm -a    
+                docker pull $WEBSITE_IMAGE
+                docker pull $NGINX_IMAGE               
                 docker-compose --env-file=.env -f docker-compose.prod.yml up -d
                 docker logout
