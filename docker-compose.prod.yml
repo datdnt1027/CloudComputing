@@ -8,5 +8,13 @@ services:
     volumes:
       - website:/website/build/ # build files will be added at this directory !!!
 
+  nginx:
+    container_name: 'nginx'
+    image: '${NGINX_IMAGE}'
+    ports:
+      - '8080:8080'
+    volumes:
+      - website:/usr/share/nginx/html/website # Copy React App's build files to the Nginx directory
+
 volumes:
   website:
