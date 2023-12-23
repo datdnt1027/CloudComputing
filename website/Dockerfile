@@ -17,4 +17,4 @@ COPY . .
 RUN npm run build
 
 # Build the React app
-EXPOSE 3001
+EXPOSE 3000
