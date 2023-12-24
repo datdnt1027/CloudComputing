@@ -6,15 +6,16 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - website:/website/build/ # build files will be added at this directory !!!
+      - website:/website/build/
 
   nginx:
     container_name: 'nginx'
     image: '${NGINX_IMAGE}'
     ports:
-      - '80:80'
+      - '8080:8080'
     volumes:
-      - website:/usr/share/nginx/html/website # Copy React App's build files to the Nginx directory
+      - website:/usr/share/nginx/html/website
+    restart: always  # Add this line to specify the restart policy
 
 volumes:
   website:
